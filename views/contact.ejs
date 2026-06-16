@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<section class="section page-hero">
+  <div class="container">
+    <span class="eyebrow">Contact Us</span>
+    <h1>Questions before you register? Send us a note.</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container two-col">
+    <div>
+      <% if (sent) { %>
+        <div class="banner banner-success">Thanks — your message has been sent. We usually reply within one working day.</div>
+      <% } %>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="banner banner-error"><%= error %></div>
+      <% } %>
+
+      <form class="form-card" method="POST" action="/contact">
+        <div class="form-grid">
+          <div class="full">
+            <label for="name">Full name <span class="required-mark">*</span></label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="full">
+            <label for="email">Email address <span class="required-mark">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="full">
+            <label for="message">Message <span class="required-mark">*</span></label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.2rem;">Send message</button>
+      </form>
+    </div>
+
+    <div>
+      <h3>Visit us</h3>
+      <p>24 Liberation Road, Airport Residential Area, Accra, Ghana</p>
+      <iframe class="map-frame" loading="lazy"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1850%2C5.5950%2C-0.1500%2C5.6150&layer=mapnik&marker=5.6037%2C-0.1681"
+        title="Map showing Riverside Dental Practice location"></iframe>
+
+      <h3 style="margin-top:2rem;">Opening hours</h3>
+      <ul class="opening-hours">
+        <li><span>Monday &ndash; Friday</span><span>8:30am &ndash; 6:00pm</span></li>
+        <li><span>Saturday</span><span>9:00am &ndash; 1:00pm</span></li>
+        <li><span>Sunday</span><span>Closed</span></li>
+      </ul>
+
+      <h3 style="margin-top:2rem;">Other ways to reach us</h3>
+      <p>Phone: +233 30 276 1199<br>Email: hello@riversidedental.example</p>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

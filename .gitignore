@@ -1,0 +1,5 @@
+node_modules/
+dental_practice.db
+.env
+.DS_Store
+*.log

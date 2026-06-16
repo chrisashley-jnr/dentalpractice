@@ -1,0 +1,108 @@
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="container" style="max-width:760px;">
+    <div class="page-hero" style="padding-top:0;">
+      <span class="eyebrow">New Patient</span>
+      <h1>Register with Riverside Dental</h1>
+      <p>This takes about five minutes. You&rsquo;ll be able to book your first appointment as soon as you&rsquo;re registered.</p>
+    </div>
+
+    <% if (error) { %><div class="banner banner-error"><%= error %></div><% } %>
+
+    <form class="form-card" id="register-form" method="POST" action="/register" autocomplete="off">
+      <h3 style="margin-bottom:1rem;">Your details</h3>
+      <div class="form-grid">
+        <div>
+          <label for="first_name">First name <span class="required-mark">*</span></label>
+          <input type="text" id="first_name" name="first_name" value="<%= values.first_name || '' %>" required>
+        </div>
+        <div>
+          <label for="last_name">Last name <span class="required-mark">*</span></label>
+          <input type="text" id="last_name" name="last_name" value="<%= values.last_name || '' %>" required>
+        </div>
+        <div>
+          <label for="date_of_birth">Date of birth <span class="required-mark">*</span></label>
+          <input type="date" id="date_of_birth" name="date_of_birth" value="<%= values.date_of_birth || '' %>" required>
+        </div>
+        <div>
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender">
+            <option value=""<%= !values.gender ? ' selected' : '' %>>Prefer not to say</option>
+            <option<%= values.gender === 'Female' ? ' selected' : '' %>>Female</option>
+            <option<%= values.gender === 'Male' ? ' selected' : '' %>>Male</option>
+            <option<%= values.gender === 'Non-binary' ? ' selected' : '' %>>Non-binary</option>
+          </select>
+        </div>
+      </div>
+
+      <h3 style="margin:1.6rem 0 1rem;">Address</h3>
+      <div class="form-grid">
+        <div class="full">
+          <label for="address_line1">Address line 1 <span class="required-mark">*</span></label>
+          <input type="text" id="address_line1" name="address_line1" value="<%= values.address_line1 || '' %>" required>
+        </div>
+        <div class="full">
+          <label for="address_line2">Address line 2</label>
+          <input type="text" id="address_line2" name="address_line2" value="<%= values.address_line2 || '' %>">
+        </div>
+        <div>
+          <label for="city">Town / City <span class="required-mark">*</span></label>
+          <input type="text" id="city" name="city" value="<%= values.city || '' %>" required>
+        </div>
+        <div>
+          <label for="postcode">Postcode <span class="required-mark">*</span></label>
+          <input type="text" id="postcode" name="postcode" value="<%= values.postcode || '' %>" required>
+        </div>
+      </div>
+
+      <h3 style="margin:1.6rem 0 1rem;">Contact &amp; login details</h3>
+      <div class="form-grid">
+        <div>
+          <label for="phone">Phone number <span class="required-mark">*</span></label>
+          <input type="tel" id="phone" name="phone" value="<%= values.phone || '' %>" required>
+        </div>
+        <div>
+          <label for="email">Email address <span class="required-mark">*</span></label>
+          <input type="email" id="email" name="email" value="<%= values.email || '' %>" required>
+        </div>
+        <div>
+          <label for="password">Password <span class="required-mark">*</span></label>
+          <input type="password" id="password" name="password" minlength="8" required>
+          <p class="field-hint">At least 8 characters.</p>
+        </div>
+        <div>
+          <label for="confirm_password">Confirm password <span class="required-mark">*</span></label>
+          <input type="password" id="confirm_password" name="confirm_password" minlength="8" required>
+        </div>
+      </div>
+
+      <h3 style="margin:1.6rem 0 1rem;">Health &amp; emergency contact</h3>
+      <div class="form-grid">
+        <div>
+          <label for="emergency_contact_name">Emergency contact name</label>
+          <input type="text" id="emergency_contact_name" name="emergency_contact_name" value="<%= values.emergency_contact_name || '' %>">
+        </div>
+        <div>
+          <label for="emergency_contact_phone">Emergency contact phone</label>
+          <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" value="<%= values.emergency_contact_phone || '' %>">
+        </div>
+        <div class="full">
+          <label for="medical_conditions">Relevant medical conditions or allergies</label>
+          <textarea id="medical_conditions" name="medical_conditions"><%= values.medical_conditions || '' %></textarea>
+          <p class="field-hint">This is shared only with your treating dentist, in line with our data protection notice.</p>
+        </div>
+        <div class="full checkbox-row">
+          <input type="checkbox" id="marketing_consent" name="marketing_consent" value="1"<%= values.marketing_consent ? ' checked' : '' %>>
+          <label for="marketing_consent">I&rsquo;m happy to receive appointment reminders and occasional practice news by email. (Optional — you can withdraw this at any time.)</label>
+        </div>
+      </div>
+
+      <p class="field-hint" style="margin-top:1.2rem;">By registering you agree to our handling of your data as described in our <a href="/contact">privacy notice</a>, in line with UK GDPR.</p>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:1rem;">Create my account</button>
+      <p style="text-align:center; margin-top:1rem; font-size:0.9rem;">Already registered? <a href="/login">Log in</a></p>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="container" style="max-width:480px;">
+    <div class="page-hero" style="padding-top:0;">
+      <span class="eyebrow">Patient Login</span>
+      <h1>Welcome back</h1>
+    </div>
+
+    <% if (error) { %><div class="banner banner-error"><%= error %></div><% } %>
+
+    <form class="form-card" method="POST" action="/login">
+      <input type="hidden" name="next" value="<%= next %>">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" required>
+      <p></p>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.3rem;">Log in</button>
+      <p style="text-align:center; margin-top:1rem; font-size:0.9rem;">New here? <a href="/register">Register as a patient</a></p>
+    </form>
+
+    <p class="field-hint" style="text-align:center; margin-top:1rem;">Demo account — kofi.boateng@example.com / Patient2026!</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

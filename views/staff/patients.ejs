@@ -1,0 +1,72 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="container">
+    <div class="page-hero" style="padding-top:0; text-align:left;">
+      <span class="eyebrow">Staff Report</span>
+      <h1>List of patients</h1>
+      <p><a href="/staff/dashboard">&larr; Back to dashboard</a></p>
+    </div>
+
+    <div class="report-toolbar">
+      <form class="search-form" method="GET" action="/staff/reports/patients">
+        <input type="text" name="q" placeholder="Search by name or email" value="<%= search %>">
+        <button class="btn btn-secondary btn-sm" type="submit">Search</button>
+      </form>
+      <a class="btn btn-ghost btn-sm" href="/staff/reports/patients.csv">Export CSV</a>
+    </div>
+
+    <% if (patients.length === 0) { %>
+      <div class="empty-state">No patients match your search.</div>
+    <% } else { %>
+      <div class="table-wrap">
+        <table class="report-table">
+          <thead><tr><th>Name</th><th>Date of Birth</th><th>Phone</th><th>Email</th><th>Postcode</th><th>Registered</th><th>Actions</th></tr></thead>
+          <tbody>
+            <% patients.forEach(p => { %>
+              <tr>
+                <td><%= p.first_name %> <%= p.last_name %></td>
+                <td><%= p.date_of_birth %></td>
+                <td><%= p.phone %></td>
+                <td><%= p.email %></td>
+                <td><%= p.postcode %></td>
+                <td><%= p.registered_at.slice(0,10) %></td>
+                <td><button class="btn btn-ghost btn-sm" type="button" data-modal-target="patient-modal-<%= p.id %>">View details</button></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% patients.forEach(p => { %>
+        <div class="modal-backdrop" id="patient-modal-<%= p.id %>" hidden>
+          <div class="modal-content patient-modal" role="dialog" aria-modal="true" aria-labelledby="patient-modal-title-<%= p.id %>">
+            <div class="modal-header">
+              <h3 id="patient-modal-title-<%= p.id %>"><%= p.first_name %> <%= p.last_name %></h3>
+              <button class="modal-close" type="button" aria-label="Close patient details" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+              <dl class="detail-grid">
+                <div><dt>Date of birth</dt><dd><%= p.date_of_birth %></dd></div>
+                <div><dt>Gender</dt><dd><%= p.gender || 'Not provided' %></dd></div>
+                <div><dt>Phone</dt><dd><%= p.phone %></dd></div>
+                <div><dt>Email</dt><dd><%= p.email %></dd></div>
+                <div class="detail-wide"><dt>Address</dt><dd><%= p.address_line1 %><%= p.address_line2 ? ', ' + p.address_line2 : '' %>, <%= p.city %>, <%= p.postcode %></dd></div>
+                <div><dt>Emergency contact</dt><dd><%= p.emergency_contact_name || 'Not provided' %></dd></div>
+                <div><dt>Emergency phone</dt><dd><%= p.emergency_contact_phone || 'Not provided' %></dd></div>
+                <div class="detail-wide"><dt>Medical notes</dt><dd><%= p.medical_conditions || 'None recorded' %></dd></div>
+                <div><dt>Marketing consent</dt><dd><%= p.marketing_consent ? 'Yes' : 'No' %></dd></div>
+                <div><dt>Registered</dt><dd><%= p.registered_at.slice(0,10) %></dd></div>
+              </dl>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary btn-sm" type="button" data-modal-close>Close</button>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      <p class="field-hint" style="margin-top:0.8rem;"><%= patients.length %> patient(s) shown.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

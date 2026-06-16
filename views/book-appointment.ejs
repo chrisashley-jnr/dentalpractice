@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="container" style="max-width:680px;">
+    <div class="page-hero" style="padding-top:0;">
+      <span class="eyebrow">Book an Appointment</span>
+      <h1>Choose a service, dentist and time</h1>
+    </div>
+
+    <% if (welcome) { %><div class="banner banner-success">You&rsquo;re registered! Book your first appointment below.</div><% } %>
+    <% if (error) { %><div class="banner banner-error"><%= error %></div><% } %>
+
+    <form class="form-card" method="POST" action="/book-appointment">
+      <div class="form-grid">
+        <div class="full">
+          <label for="service_id">Service <span class="required-mark">*</span></label>
+          <select id="service_id" name="service_id" required>
+            <option value="">Select a service&hellip;</option>
+            <% services.forEach(s => { %>
+              <option value="<%= s.id %>"><%= s.name %> (<%= s.duration_mins %> mins<%= s.price_ghs > 0 ? ', GH₵' + s.price_ghs.toFixed(0) : '' %>)</option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="full">
+          <label for="dentist_id">Dentist <span class="required-mark">*</span></label>
+          <select id="dentist_id" name="dentist_id" required>
+            <option value="">Select a dentist&hellip;</option>
+            <% dentists.forEach(d => { %>
+              <option value="<%= d.id %>"><%= d.title %> <%= d.full_name %> &mdash; <%= d.specialty %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div>
+          <label for="appointment_date">Date <span class="required-mark">*</span></label>
+          <input type="date" id="appointment_date" name="appointment_date" min="<%= new Date().toISOString().slice(0,10) %>" required>
+        </div>
+
+        <div>
+          <label for="appointment_time">Time slot <span class="required-mark">*</span></label>
+          <select id="appointment_time" name="appointment_time" required>
+            <option value="">Select date &amp; dentist first&hellip;</option>
+            <% ['09:00','09:30','10:00','10:30','11:00','11:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30'].forEach(t => { %>
+              <option value="<%= t %>" data-taken="0"><%= t %></option>
+            <% }) %>
+          </select>
+          <p class="field-hint">Slots already booked for the selected dentist and date are marked unavailable automatically.</p>
+        </div>
+
+        <div class="full">
+          <label for="notes">Anything we should know? (optional)</label>
+          <textarea id="notes" name="notes" placeholder="E.g. tooth pain location, anxiety about a particular procedure&hellip;"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.3rem;">Confirm appointment</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

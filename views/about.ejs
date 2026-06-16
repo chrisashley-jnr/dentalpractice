@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+<section class="section page-hero">
+  <div class="container">
+    <span class="eyebrow">About Riverside Dental</span>
+    <h1>A practice built around patients who&rsquo;d rather be somewhere else.</h1>
+    <p>We know the dentist isn&rsquo;t most people&rsquo;s favourite appointment. Our whole approach — from how we talk through treatment to how appointments are booked — is designed to make visits calmer and more predictable.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Meet the team</h2>
+    <div class="card-grid">
+      <% const palette = ['#7C9A82', '#E0734A', '#1F3A3D']; %>
+      <% dentists.forEach((d, i) => { %>
+        <div class="card team-card">
+          <div class="avatar" style="background: <%= palette[i % palette.length] %>;"><%= d.full_name.split(' ').map(n => n[0]).join('') %></div>
+          <h3><%= d.title %> <%= d.full_name %></h3>
+          <p class="eyebrow" style="margin-bottom:0.4rem;"><%= d.specialty %></p>
+          <p><%= d.bio %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/divider') %>
+
+<section class="section section--sand">
+  <div class="container two-col">
+    <div>
+      <span class="eyebrow">Patient education</span>
+      <h2>A two-minute guide to looking after your teeth between visits</h2>
+      <p>We ask every new patient to watch this short, practical explainer covering brushing technique, flossing, and the food and drink choices that matter most for long-term dental health.</p>
+      <p class="timeline-note">Placeholder for the practice&rsquo;s own hosted explainer video — swap the <code>&lt;iframe&gt;</code> in <code>about.ejs</code> for a real YouTube/Vimeo embed URL once filmed.</p>
+    </div>
+    <div class="video-embed" style="background:#1F3A3D; display:flex; align-items:center; justify-content:center;">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <circle cx="32" cy="32" r="31" stroke="#EDE4D3" stroke-width="2"/>
+        <path d="M26 21l20 11-20 11V21Z" fill="#E0734A"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Our values</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Honest advice</h3>
+        <p>We only recommend treatment that&rsquo;s genuinely needed, and we&rsquo;ll always explain cost and alternatives before any work begins.</p>
+      </div>
+      <div class="card">
+        <h3>No surprise waits</h3>
+        <p>Online booking shows real availability, so you know exactly when you&rsquo;ll be seen — no calling around for a slot.</p>
+      </div>
+      <div class="card">
+        <h3>Care for nervous patients</h3>
+        <p>Every member of staff is trained in anxiety-reducing communication, from first registration through to treatment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

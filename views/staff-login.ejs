@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="container" style="max-width:440px;">
+    <div class="page-hero" style="padding-top:0;">
+      <span class="eyebrow">Staff Area</span>
+      <h1>Staff login</h1>
+      <p>For practice staff only. Patients should use the <a href="/login">patient login</a>.</p>
+    </div>
+
+    <% if (error) { %><div class="banner banner-error"><%= error %></div><% } %>
+
+    <form class="form-card" method="POST" action="/staff/login">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required autocomplete="off">
+      <p></p>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit" class="btn btn-secondary btn-block" style="margin-top:1.3rem;">Log in</button>
+    </form>
+
+    <p class="field-hint" style="text-align:center; margin-top:1rem;">Demo account — staff / password123</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

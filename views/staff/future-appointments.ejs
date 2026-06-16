@@ -1,0 +1,96 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="container">
+    <div class="page-hero" style="padding-top:0; text-align:left;">
+      <span class="eyebrow">Staff Report</span>
+      <h1>Future appointments</h1>
+      <p><a href="/staff/dashboard">&larr; Back to dashboard</a></p>
+    </div>
+
+    <div class="report-toolbar">
+      <form class="search-form" method="GET" action="/staff/reports/future-appointments">
+        <input type="text" name="q" placeholder="Search patient or dentist" value="<%= search %>">
+        <button class="btn btn-secondary btn-sm" type="submit">Search</button>
+      </form>
+      <a class="btn btn-ghost btn-sm" href="/staff/reports/future-appointments.csv">Export CSV</a>
+    </div>
+
+    <% if (appointments.length === 0) { %>
+      <div class="empty-state">No upcoming appointments match your search.</div>
+    <% } else { %>
+      <div class="table-wrap">
+        <table class="report-table">
+          <thead><tr><th>Date</th><th>Time</th><th>Patient</th><th>Phone</th><th>Dentist</th><th>Service</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <% appointments.forEach(a => { %>
+              <tr>
+                <td><%= a.appointment_date %></td>
+                <td><%= a.appointment_time %></td>
+                <td><button class="table-link-button" type="button" data-modal-target="appointment-patient-modal-<%= a.id %>"><%= a.patient_name %></button></td>
+                <td><%= a.patient_phone %></td>
+                <td><%= a.dentist_name %></td>
+                <td><%= a.service_name %></td>
+                <td><span class="status-pill status-<%= a.status %>"><%= a.status %></span></td>
+                <td>
+                  <div class="table-actions">
+                    <button class="btn btn-ghost btn-sm" type="button" data-modal-target="appointment-patient-modal-<%= a.id %>">Details</button>
+                    <form action="/staff/appointments/<%= a.id %>/status" method="POST" data-confirm="Mark this appointment as completed?">
+                      <input type="hidden" name="status" value="completed">
+                      <button class="btn btn-success btn-sm" type="submit">Done</button>
+                    </form>
+                    <form action="/staff/appointments/<%= a.id %>/status" method="POST" data-confirm="Cancel this appointment? This will remove it from the upcoming list.">
+                      <input type="hidden" name="status" value="cancelled">
+                      <button class="btn btn-danger btn-sm" type="submit">Cancel</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% appointments.forEach(a => { %>
+        <div class="modal-backdrop" id="appointment-patient-modal-<%= a.id %>" hidden>
+          <div class="modal-content patient-modal" role="dialog" aria-modal="true" aria-labelledby="appointment-patient-title-<%= a.id %>">
+            <div class="modal-header">
+              <h3 id="appointment-patient-title-<%= a.id %>"><%= a.patient_name %></h3>
+              <button class="modal-close" type="button" aria-label="Close patient details" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+              <dl class="detail-grid">
+                <div><dt>Appointment</dt><dd><%= a.appointment_date %> at <%= a.appointment_time %></dd></div>
+                <div><dt>Service</dt><dd><%= a.service_name %></dd></div>
+                <div><dt>Dentist</dt><dd><%= a.dentist_name %></dd></div>
+                <div><dt>Status</dt><dd><span class="status-pill status-<%= a.status %>"><%= a.status %></span></dd></div>
+                <div><dt>Date of birth</dt><dd><%= a.date_of_birth %></dd></div>
+                <div><dt>Gender</dt><dd><%= a.gender || 'Not provided' %></dd></div>
+                <div><dt>Phone</dt><dd><%= a.patient_phone %></dd></div>
+                <div><dt>Email</dt><dd><%= a.patient_email %></dd></div>
+                <div class="detail-wide"><dt>Address</dt><dd><%= a.address_line1 %><%= a.address_line2 ? ', ' + a.address_line2 : '' %>, <%= a.city %>, <%= a.postcode %></dd></div>
+                <div><dt>Emergency contact</dt><dd><%= a.emergency_contact_name || 'Not provided' %></dd></div>
+                <div><dt>Emergency phone</dt><dd><%= a.emergency_contact_phone || 'Not provided' %></dd></div>
+                <div class="detail-wide"><dt>Medical notes</dt><dd><%= a.medical_conditions || 'None recorded' %></dd></div>
+                <div class="detail-wide"><dt>Appointment notes</dt><dd><%= a.notes || 'None recorded' %></dd></div>
+              </dl>
+            </div>
+            <div class="modal-footer">
+              <form action="/staff/appointments/<%= a.id %>/status" method="POST" data-confirm="Mark this appointment as completed?">
+                <input type="hidden" name="status" value="completed">
+                <button class="btn btn-success btn-sm" type="submit">Mark done</button>
+              </form>
+              <form action="/staff/appointments/<%= a.id %>/status" method="POST" data-confirm="Cancel this appointment? This will remove it from the upcoming list.">
+                <input type="hidden" name="status" value="cancelled">
+                <button class="btn btn-danger btn-sm" type="submit">Cancel appointment</button>
+              </form>
+              <button class="btn btn-ghost btn-sm" type="button" data-modal-close>Close</button>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      <p class="field-hint" style="margin-top:0.8rem;"><%= appointments.length %> appointment(s) shown.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

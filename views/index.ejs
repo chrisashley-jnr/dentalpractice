@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+
+  <section class="section">
+    <div class="container hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Accra · Accepting new patients</span>
+        <h1>Dental care that feels less like a dentist&rsquo;s.</h1>
+        <p class="lede">Riverside Dental Practice is a family-friendly clinic built around calm appointments, clear
+          advice, and booking that doesn&rsquo;t involve a phone queue.</p>
+        <div class="hero-actions">
+          <a href="/register" class="btn btn-primary">Register as a patient</a>
+          <a href="/services" class="btn btn-ghost">View our services</a>
+        </div>
+        <div class="trust-row">
+          <div><strong>3</strong>Resident dentists</div>
+          <div><strong>4.8/5</strong>Average patient rating</div>
+          <div><strong>15+ yrs</strong>Serving Accra</div>
+        </div>
+      </div>
+
+      <img class="hero-art" src="/dental.svg" alt="Riverside Dental Practice treatment room">
+    </div>
+  </section>
+
+  <%- include('partials/divider') %>
+
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">What we offer</span>
+        <h2>A full range of dental care, in one place.</h2>
+        <div class="card-grid">
+          <% services.forEach(s=> { %>
+            <div class="card">
+              <div class="icon-badge"><%- include('partials/icon', { name: s.icon_key }) %></div>
+              <h3>
+                <%= s.name %>
+              </h3>
+              <p>
+                <%= s.description %>
+              </p>
+              <div class="card-meta">
+                <span>
+                  <%= s.duration_mins %> mins
+                </span>
+                <span>
+                  <%= s.price_ghs> 0 ? 'GH₵' + s.price_ghs.toFixed(0) : 'Free' %>
+                </span>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+        <p style="text-align:center; margin-top:2.2rem;"><a href="/services" class="btn btn-secondary">See all services
+            &amp; pricing</a></p>
+      </div>
+    </section>
+
+    <%- include('partials/divider') %>
+
+      <section class="section section--sand">
+        <div class="container two-col">
+          <div>
+            <span class="eyebrow">Booking, simplified</span>
+            <h2>Register once, book in seconds.</h2>
+            <p>Create a patient account and you&rsquo;ll be able to see live appointment availability, book with your
+              preferred dentist, and manage or cancel upcoming visits — all online, any time.</p>
+            <a href="/register" class="btn btn-primary">Get started</a>
+          </div>
+          <div>
+            <ul class="opening-hours">
+              <li><span>Monday &ndash; Friday</span><span>8:30am &ndash; 6:00pm</span></li>
+              <li><span>Saturday</span><span>9:00am &ndash; 1:00pm</span></li>
+              <li><span>Sunday</span><span>Closed</span></li>
+              <li><span>Emergency line</span><span>24 hours</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <%- include('partials/footer') %>

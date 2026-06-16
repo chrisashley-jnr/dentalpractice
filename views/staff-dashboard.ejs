@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="container">
+    <div class="page-hero" style="padding-top:0; text-align:left; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <span class="eyebrow">Staff Area</span>
+        <h1>Staff dashboard</h1>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-number"><%= stats.patientCount %></div><div class="stat-label">Registered patients</div></div>
+      <div class="stat-card"><div class="stat-number"><%= stats.futureCount %></div><div class="stat-label">Upcoming appointments</div></div>
+      <div class="stat-card"><div class="stat-number"><%= stats.pastCount %></div><div class="stat-label">Completed / past appointments</div></div>
+      <div class="stat-card"><div class="stat-number"><%= stats.enquiryCount %></div><div class="stat-label">Contact enquiries</div></div>
+    </div>
+
+    <h2 style="margin-top:1rem;">Reports</h2>
+    <div class="report-links">
+      <a class="report-link-card" href="/staff/reports/patients">
+        <h3>List of patients</h3>
+        <span>Search &amp; export CSV</span>
+      </a>
+      <a class="report-link-card" href="/staff/reports/future-appointments">
+        <h3>Future appointments</h3>
+        <span>Search &amp; export CSV</span>
+      </a>
+      <a class="report-link-card" href="/staff/reports/past-appointments">
+        <h3>Past appointments</h3>
+        <span>Search &amp; export CSV</span>
+      </a>
+    </div>
+
+    <p style="margin-top:1.6rem;"><a href="/staff/reports/enquiries">View website contact enquiries &rarr;</a></p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

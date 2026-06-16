@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<section class="section page-hero">
+  <div class="container">
+    <span class="eyebrow">Our Services</span>
+    <h1>Everything from a check-up to emergency care.</h1>
+    <p>Prices below are a guide for self-pay patients. Every treatment plan is confirmed and explained before any work goes ahead.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card-grid">
+      <% services.forEach(s => { %>
+        <div class="card">
+          <div class="icon-badge"><%- include('partials/icon', { name: s.icon_key }) %></div>
+          <h3><%= s.name %></h3>
+          <p><%= s.description %></p>
+          <div class="card-meta">
+            <span><%= s.duration_mins %> mins</span>
+            <span><%= s.price_ghs > 0 ? 'GH₵' + s.price_ghs.toFixed(0) : 'Free consultation' %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <p style="text-align:center; margin-top:2.5rem;">
+      <a href="/register" class="btn btn-primary">Register to book any of these</a>
+    </p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
