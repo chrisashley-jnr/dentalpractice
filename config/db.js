@@ -1,9 +1,17 @@
 // config/db.js
 const Database = require('better-sqlite3');
+const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
-const dbPath = path.join(__dirname, '../dental_practice.db');
+const dbPath = process.env.SQLITE_PATH || (
+  process.env.VERCEL
+    ? path.join(os.tmpdir(), 'dental_practice.db')
+    : path.join(__dirname, '../dental_practice.db')
+);
+
+fs.mkdirSync(path.dirname(dbPath), { recursive: true });
 const db = new Database(dbPath);
 
 // Create tables
